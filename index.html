@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Animation</title>
+
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
+
+    <body>  
+        
+        <div id="preloader">
+            <div id="loader"></div>
+        </div>
+        
+        <div id="animation-stage">
+
+            <div id="element-1" class="model-container">
+                <img src="assets/images/female_model.png" alt="model"/>
+            </div>
+            <div id="element-2" class="text-1">
+                <h2>Indulge on your <span class="green">bias.</span></h2>
+            </div>
+            <div id="element-3" class="text-2">
+                <h2>Enjoy Spotify Premium.</h2>
+            </div>
+            <div id="element-4" class="text-3">
+                <h2>P129/month</h2>
+            </div>
+            <div id="element-5" class="text-4">
+                <a class="learn-more" href="#">Learn More</a></h2>
+            </div>
+            <div id="element-6" class="spotify-container">
+                <img src="assets/images/spotify_whilte_logo.png" alt="spotify logo"/>
+            </div>
+            <div id="element-7" class="button-container" onclick="replayAnimation()">
+                <img src="assets/images/replay_icon.png" alt="replay button"/>
+            </div>
+        </div>
+
+        <script>
+            (function() {
+                   document.getElementById('preloader').style.display = "none";
+                   document.getElementById('animation-stage').style.display = "block";  
+                   startAnimation();             
+            })();
+
+            function startAnimation(){
+                setTimeout(()=>{
+                    fadeIn(document.getElementById('element-1'), 3000);
+                }, 2000);
+
+                setTimeout(()=>{
+                    slideFromLeft(document.getElementById('element-2'), 2000, 10);
+                }, 4000);
+
+                setTimeout(()=>{
+                    fadeOut(document.getElementById('element-1'), 2000);
+                }, 6000);
+
+                setTimeout(()=>{
+                    slideToLeft(document.getElementById('element-2'), 2000, -50);
+                }, 7000);
+
+                setTimeout(()=>{
+                    slideFromLeft(document.getElementById('element-3'), 2000, 10);
+                }, 7500);
+
+                setTimeout(()=>{
+                    fadeIn(document.getElementById('element-4'), 2000);
+                }, 8500);
+
+                setTimeout(()=>{
+                    fadeIn(document.getElementById('element-5'), 2000);
+                }, 10000);
+                
+                setTimeout(()=>{
+                    slideFromRight(document.getElementById('element-6'), 2000, -5);
+                }, 11000);
+
+                setTimeout(()=>{
+                    fadeIn(document.getElementById('element-7'), 2000);
+                }, 14000);
+
+            }
+
+            function replayAnimation(){
+
+                document.getElementById('element-1').style.opacity = 0;
+                document.getElementById('element-2').style.opacity = 0;
+                document.getElementById('element-2').style.left = '-50%';
+                document.getElementById('element-3').style.opacity = 0;
+                document.getElementById('element-3').style.left = '-50%';
+                document.getElementById('element-4').style.opacity = 0;
+                document.getElementById('element-5').style.opacity = 0;
+                document.getElementById('element-6').style.opacity = 0;
+                document.getElementById('element-6').style.right = '-50%';
+                document.getElementById('element-7').style.opacity = 0;
+                
+                startAnimation(); 
+
+            }
+
+            function fadeIn(target, delay){
+                let opacity = 0;
+                let fadeInTimer = setInterval(function(){
+                    opacity += 1 / (delay/10);
+                    if(opacity > 1){
+                        clearInterval(fadeInTimer);
+                        return;
+                    }
+                    
+                    target.style.opacity = opacity;
+                }, 10);
+            }
+
+            function fadeOut(target, delay){
+                let opacity = 1;
+                let fadeOutTimer = setInterval(function(){
+                    opacity -= 1 / (delay/10);
+                    if(opacity <= 0){
+                        clearInterval(fadeOutTimer);
+                        return;
+                    }
+                    
+                    target.style.opacity = opacity;
+                }, 10);
+            }
+
+            function slideFromLeft(target, delay, endPosition){
+                let position = -50;
+                target.style.opacity = 1;
+                let slideFromLeftTimer = setInterval(function(){
+                    position += 100 / (delay/10);
+                    if(position > endPosition){
+                        clearInterval(slideFromLeftTimer);
+                        return;
+                    }
+                    target.style.left = position+'%';
+                }, 10);
+            }
+
+            function slideToLeft(target, delay, endPosition){
+                let position = target.style.left;
+                position = parseInt(position);
+                let slideToLeftTimer = setInterval(function(){
+                    position -= 100 / (delay/10);
+                    if(position <= endPosition){
+                        clearInterval(slideToLeftTimer);
+                        return;
+                    }
+                    target.style.left = position+'%';
+                }, 10);
+            }
+
+            function slideFromRight(target, delay, endPosition){
+                let position = -50;
+                target.style.opacity = 1;
+                let slideFromRightTimer = setInterval(function(){
+                    position += 100 / (delay/10);
+                    if(position >= endPosition){
+                        clearInterval(slideFromRightTimer);
+                        return;
+                    }
+                    target.style.right = position+'%';
+                }, 10);
+            }
+
+        </script>
+    </body>
+</html>
